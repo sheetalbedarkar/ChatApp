@@ -1,0 +1,118 @@
+// const read = require("../models/app.model.js");
+
+var userService = require('../services/services.js'); 
+var jwt = require('jsonwebtoken');
+var gentoken = require('../middleware/token');
+var sendmail = require('../middleware/sendmail'); 
+module.exports.register= (req, res) => {
+    req.checkBody('name', 'name is not valid').isLength({ min: 3 }).isAlpha();
+    req.checkBody('email', 'Email is not valid').isEmail();
+    req.checkBody('password', 'password is not valid').isLength({ min: 8 }).equals(req.body.cpassword);
+    var errors = req.validationErrors();
+    var response = {};
+    if (errors) {
+        response.success = false;
+        response.error = errors;
+        return res.status(422).send(response);
+ } else {
+    userService.register(req.body, (err, data) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send({
+                message: err
+            })
+        } else {
+            console.log(data);
+            console.log("in controller");
+            return res.status(200).send({
+                message: data
+                
+            })
+        }
+    })
+}
+}
+module.exports.login = (req, res) => {
+    console.log("req in controller", req.body);
+
+    req.checkBody('email', 'Email is not valid').isEmail();
+    req.checkBody('password', 'password is not valid').isLength({ min: 4 });
+    var secret = "adcgfft";
+    var errors = req.validationErrors();
+    var response = {};
+    if (errors) {
+        response.success = false;
+        response.error = errors;
+        return res.status(422).send(response);
+    } else {
+        userService.login(req.body, (err, data) => {
+            if (err) {
+                return res.status(500).send({
+                    message: err
+                });
+            } else {
+                return res.status(200).send({
+                    message: data
+                })
+            }
+        });
+    }
+
+};
+
+
+exports.forgetPassword = (req, res) => {
+    var responseResult = {};
+    userService.forgetPassword(req.body, (err, result) => {
+        if (err) {
+            responseResult.success = false;
+            responseResult.error = err;
+            res.status(500).send(responseResult)
+        }
+        else {
+            responseResult.success = true;
+            responseResult.result = result;
+
+            const payload = {
+                user_id: responseResult.result._id
+            }
+            console.log(payload);
+            const obj = gentoken.GenerateToken(payload);
+            console.log("controller obj", obj);
+            const url = `http://localhost:3000/#!/resetPassword/${obj.token}`;
+            sendmail.sendEmailFunction(url,req.body.email);
+            //Send email using this token generated
+            res.status(200).send(url);
+        }
+    })
+}
+exports.resetPassword = (req, res) => {
+    var responseResult = {};
+    userService.resetPass(req, (err, result) => {
+        if (err) {
+            responseResult.success = false;
+            responseResult.error = err;
+            res.status(500).send(responseResult)
+        }
+        else {
+            console.log('in user ctrl token is verified giving response');
+            responseResult.success = true;
+            responseResult.result = result;
+            res.status(200).send(responseResult);
+        }
+    })
+}
+
+module.exports.getAllUser = (req,res) => {
+    userService.getAllUser(req, (err, data) => {
+        var response = {};
+        if (err) {
+            return callback(err);
+        } else {
+          //  console.log("log==>",data);
+            response.success = true;
+            response.result = data;
+            res.status(200).send(response);
+        }
+    })
+};
