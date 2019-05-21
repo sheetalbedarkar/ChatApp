@@ -1,0 +1,68 @@
+<html ng-app = "ChatApp">
+    <head>
+        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+        <script src = "../angular.js"></script>
+        <script src = "../controller/controlRegister.js"></script>
+        <link rel = "stylesheet" href = "../css/stylesheet.css">
+        <title>Registration Page</title>
+    </head>
+<body ng-controller = "controlRegister">
+
+<form id="myform" name = "register" method="POST">
+
+<center>
+    <br>
+<h2>Create new Account</h2>
+<p>Enter Your Name :<br>
+<input type = "text" name = "name" ng-model = "name" required>
+<br>
+<span style="color: red" ng-show = "register.name.$dirty && register.name.$invalid">
+<span ng-show = "register.name.$error.required">Name is required.
+</span>
+</span>
+</p>
+
+<p>Email id :<br>
+<input type = "email" name = "email" ng-model = "email" required>
+<br>
+<span style = "color: red" ng-show = "register.email.$dirty && register.email.$invalid">
+<span ng-show = "register.email.$error.required">Email id is required.
+</span>
+<span ng-show = "register.email.$error.email">Invalid Email address
+</span>
+</span>
+</p>
+
+<p>Password :<br>
+<input type = "{{typePassword ? 'text' : 'password'}}" name = "password" ng-minlength="8" ng-maxlength="20" ng-pattern="/(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z])/"  ng-model = "password" required >
+<span style = "color: red" ng-show = "register.password.$dirty && register.password.$invalid">
+<br>
+<span ng-show = "register.password.$error.required">Password is required</span>
+<span ng-show = "register.password.$error.minlength">Minimum length must 8</span>
+<span ng-show = "register.password.$error.maxlength">Maximum length must be 20</span>
+<span ng-show = "register.password.$error.pattern">Password must contain atleast one capital and one small letter and a number or symbol</span>
+<span class = "showPassword" ng-click = "togglePassword()"></span>
+<br>
+
+</span>
+</p>
+
+<p>Confirm password :<br>
+<input type = "password" name = "cpassword" ng-model = "cpassword" valid-cpassword = "password" required>
+<span style = "color: red" ng-show = "register.password_c.$dirty && register.password_c.$invalid">
+<br>
+<span ng-show = "register.password_c.$error.required">Confirm your password</span>
+<span ng-show = "register.password_c.$error.noMatch">Password do not match</span>
+</span>
+</p>
+
+<p>
+<input type = "submit" value="Register" class="button" ng-click = "registerUser()" ng-disabled = "register.name.$dirty && register.name.$invalid || 
+register.email.$dirty && register.email.$invalid || register.password.$dirty && register.password.$invalid
+|| register.password_c.$dirty && register.password_c.$invalid">
+</p>
+</center>
+<p>Already have an account ? <a href="http://localhost:3000/#!/login">log in</a></p>
+</form>
+</body>
+</html>

@@ -1,0 +1,44 @@
+body
+{
+    background-image: url("../asserts/chatapp.jpg");
+
+}
+#myform
+{
+    position: relative;
+    background-color: white;
+    padding: 20px,20px,20px,20px;
+    border-color: white;
+    border-width: 2px;
+    border-style: solid;
+    margin: 20px;
+    margin-left: 450px;
+    margin-right: 450px;
+    margin-top: 90px;
+    margin-bottom: 150px;
+}
+a:link
+{
+    color:darkblue;
+}
+a:hover
+{
+     color: darkmagenta; 
+}
+
+.button
+{
+    background: lightblue;
+    font: 700 13px Arial;
+    height: 30px;
+    line-height: 28px;
+    padding: 0 20px;
+    text-align: center;
+    margin-right: 10px;
+    box-sizing: border-box;
+}
+
+.button:hover
+{
+    background: aqua
+}

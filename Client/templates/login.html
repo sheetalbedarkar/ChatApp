@@ -1,0 +1,31 @@
+<html ng-app = "ChatApp">
+    <head>
+        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+        <script src = "../angular.js"></script>
+        <script src = "../controller/controlLogin.js"></script>
+        <link rel = "stylesheet" href = "../css/stylesheet.css">
+    </head>
+
+<body ng-controller = "controlLogin">
+<form id="myform" ng-controller ="controlLogin" name = "login" novalidate>
+<center>
+<h2>Account LogIn</h2>
+<br>
+<p>Email id :<br>
+<input type = "email" name = "email" ng-model = "email" required>
+</p>
+            
+<p>Password :<br>
+<input type = "{{typePassword ? 'text' : 'password'}}" name = "password" ng-model = "password" required >
+<span class = "showPassword" ng-click = "togglePassword()"></span>
+<br>
+<p>
+<input type = "submit" value="logIn" ng-click = "loginUser()" class = "button">
+</p>
+
+<a href="http://localhost:3000/#!/forgetPassword">Forget password ?</a>
+<p>Not registered yet ? <a href="http://localhost:3000/#!/register">Sign Up </a></p>
+</center>
+</form>
+</body>
+</html>
