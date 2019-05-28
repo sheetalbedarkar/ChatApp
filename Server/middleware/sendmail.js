@@ -3,13 +3,13 @@ exports.sendEmailFunction = (url,email) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'sheetalbedarkar96@gmail.com',
+            user: 'sheetalbedarkar0108@gmail.com',
             pass: 'sheetal8446'
         },
     });
     const mailOptions = {
-        from: 'sheetalbedarkar96@gmail.com',
-        to: email,
+        from: 'sheetalbedarkar0108@gmail.com',
+        to: 'sheetalbedarkar96@gmail.com',
         subject: 'Chat-app password reset link ',
         text: 'Click on the link provided to reset your password:\n\n' + url
     };

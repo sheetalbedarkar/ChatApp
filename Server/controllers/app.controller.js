@@ -1,5 +1,3 @@
-// const read = require("../models/app.model.js");
-
 var userService = require('../services/services.js'); 
 var jwt = require('jsonwebtoken');
 var gentoken = require('../middleware/token');
@@ -34,7 +32,6 @@ module.exports.register= (req, res) => {
 }
 module.exports.login = (req, res) => {
     console.log("req in controller", req.body);
-
     req.checkBody('email', 'Email is not valid').isEmail();
     req.checkBody('password', 'password is not valid').isLength({ min: 4 });
     var secret = "adcgfft";
@@ -51,9 +48,11 @@ module.exports.login = (req, res) => {
                     message: err
                 });
             } else {
+                var token = jwt.sign({ email: req.body.email, id: data[0]._id }, secret, { expiresIn: 64000008 });
                 return res.status(200).send({
-                    message: data
-                })
+                    message: data,
+                    "token": token
+                });
             }
         });
     }
@@ -69,10 +68,9 @@ exports.forgetPassword = (req, res) => {
             responseResult.error = err;
             res.status(500).send(responseResult)
         }
-        else {
+        else { 
             responseResult.success = true;
-            responseResult.result = result;
-
+            responseResult.result = result; 
             const payload = {
                 user_id: responseResult.result._id
             }
@@ -87,7 +85,7 @@ exports.forgetPassword = (req, res) => {
     })
 }
 exports.resetPassword = (req, res) => {
-    var responseResult = {};
+    var responseResult = {}; 
     userService.resetPass(req, (err, result) => {
         if (err) {
             responseResult.success = false;
@@ -109,7 +107,6 @@ module.exports.getAllUser = (req,res) => {
         if (err) {
             return callback(err);
         } else {
-          //  console.log("log==>",data);
             response.success = true;
             response.result = data;
             res.status(200).send(response);

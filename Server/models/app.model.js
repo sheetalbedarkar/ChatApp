@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 var bcrypt = require('bcrypt')
 var salt = 10;
 
-
 //create instance of schema
 var mongoschema = mongoose.Schema
 var userSchema = new mongoschema({
@@ -23,6 +22,7 @@ function hash(password) {
     var salt = bcrypt.genSaltSync(10);
     var hashPassword = bcrypt.hashSync(password, salt);
     return hashPassword;
+    
 }
 
 usermodel.prototype.register = (body, callback) => {
@@ -33,9 +33,7 @@ usermodel.prototype.register = (body, callback) => {
             return callback(err);
         }
         else if (data.length > 0) {
-
             response = { "error": true, "message": "Email already exists ", "errorCode": 404 };
-
             return callback(response);
         } else {
            body.password = bcrypt.hashSync(body.password,salt)
@@ -46,7 +44,6 @@ usermodel.prototype.register = (body, callback) => {
                 "password": body.password
 
             });
-           
             
             newUser.save((err, result) => {
 
@@ -83,7 +80,6 @@ usermodel.prototype.login = (body, callback) => {
             
             else if (res) 
             {
-                //console.log(body.email)
                 console.log(data);
                 console.log("login successfully......!");
                 return callback(null, data);
@@ -124,7 +120,6 @@ usermodel.prototype.forgetPassword=(data,callback)=>{
 usermodel.prototype.updateUserPassword=(req,callback)=> {
     console.log('in model--data:--',req.decoded);
     console.log('in model--body:--',req.body);
-
     let newpassword=bcrypt.hashSync(req.body.password,salt);
     console.log(('new pass bcrypt--',newpassword));
     user.updateOne({ _id:req.decoded.payload.user_id},{$set: {password:newpassword}},(err,result)=>{

@@ -1,11 +1,11 @@
 const contuser = require('../controllers/app.controller.js')
-
 const express = require('express')
 const router = express.Router();
-
 const authRoute=require('../Authentication/index')
 
 const authuser=require('../routes/Authorization.js')
+
+const chatcon=require('../controllers/chatController.js')
 
 router.post('/register', contuser.register);
 
