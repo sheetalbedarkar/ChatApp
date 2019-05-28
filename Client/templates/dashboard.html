@@ -12,7 +12,7 @@
     <header>
         <h1><b>CHAT APP</b></h1>
         <span class="user">
-            <h5>Welcome</h5><h2>{{currentUserName}}</h2>  
+            <h5>Welcome {{currentUserName}}</h5>  
         </span><h6>
         <button type="button" ng-click="logout()" class="logbutton">Logout</button></h6>
     </header>
@@ -24,8 +24,8 @@
                         <h3>Users</h3>
                 </b></p>
             </ul>
-            <p ng-repeat="x in allUser" ng-click="person(x)" ng-show="currentUserName!=x.firstname">
-                {{x.firstname}}</p>
+            <p ng-repeat="x in allUser" ng-click="person(x)" ng-show="currentUserName!=x.name">
+                {{x.name}}</p>
         </nav>
 
         <article>

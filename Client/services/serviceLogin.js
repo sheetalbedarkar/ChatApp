@@ -1,5 +1,4 @@
 app.service('serviceLogin', function($http, $location){
-
     this.loginUser = function(data, $scope){
         $http({
             method : 'POST',
@@ -9,15 +8,16 @@ app.service('serviceLogin', function($http, $location){
             function successCallback(response)
             {
                 console.log("Login Successful")
-                var userId = response.data.message[0]._id;
+                var userid = response.data.message[0]._id;
                 var name = response.data.message[0].name;
                 var token = response.data.token;
-                localStorage.setItem("userId", userId);
+                localStorage.setItem("userid",userid);
+                console.log("login",localStorage.getItem('userid'))
                 localStorage.setItem("name",name);
                 localStorage.setItem("token",token);
                 $location.path("/dashboard")
             },
-            function errorCallback(reponse)
+            function errorCallback(response)
             {
                 alert("Login Unsuccessfull");
                 console.log("Login Unsuccessfull");

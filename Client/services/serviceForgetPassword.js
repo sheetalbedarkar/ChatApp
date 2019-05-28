@@ -1,5 +1,4 @@
 app.service('serviceForgetPassword', function($http, $location){
-
     this.forgetPasswordUser = function(data, $scope){
         $http({
             method: 'POST',
@@ -8,10 +7,10 @@ app.service('serviceForgetPassword', function($http, $location){
         }).then(
             function successCallback(response){
                 console.log("forget password successful")
-                var userId = response.data.message[0]._id;
+                var userid = response.data.message[0]._id;
                 var name = response.data.message[0].name;
                 var token = response.data.token;
-                localStorage.setItem("userId",userId);
+                localStorage.setItem("userid",userid);
                 localStorage.setItem("name",name);
                 localStorage.setItem("token",token);
                 $location.path("/login")

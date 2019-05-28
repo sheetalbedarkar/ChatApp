@@ -1,5 +1,4 @@
 app.service('serviceResetPassword', function ($http, $location) {
-
     this.resetPasswordUser = function (data, $scope,token) {
         console.log("data on service register--- ", data);
         
@@ -17,7 +16,6 @@ app.service('serviceResetPassword', function ($http, $location) {
                 console.log(response);
                 $scope.message = "reset password successfull";
                 $location.path('/login');
-
             },
             function errorCallback(response) {
                 console.log("hjmbmjhbkjgu76565r87",response);
