@@ -1,0 +1,21 @@
+{
+    "registration" : 
+        {
+            "name" : "manju",
+            "email" : "manju@gmail.com",
+            "password" : "Manju@12345",
+            "cpassword" : "Manju@12345"
+        }
+    ,
+    "login" : 
+        {
+            "email" : "rohini@gmail.com",
+            "password" : "Rohini@123"
+        }
+    ,
+    "forgetPassword" : 
+        {
+            "email" : "rohini@gmail.com"
+        }
+}
+
