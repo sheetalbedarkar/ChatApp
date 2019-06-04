@@ -1,15 +1,24 @@
+require('dotenv').config();
 const nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+
 exports.sendEmailFunction = (url,email) => {
-    const transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport(smtpTransport({
         service: 'gmail',
+        host: process.env.NODE_HOST,
         auth: {
-            user: 'sheetalbedarkar0108@gmail.com',
-            pass: 'sheetal8446'
+            user: process.env.NODE_USER,
+            pass: process.env.NODE_PASS
         },
-    });
+        tls: {
+            rejectUnauthorized: false
+        }
+    }));
+    console.log(process.env.NODE_USER,process.env.NODE_PASS);
+    
     const mailOptions = {
-        from: 'sheetalbedarkar0108@gmail.com',
-        to: 'sheetalbedarkar96@gmail.com',
+        from: process.env.NODE_USER,
+        to: email,
         subject: 'Chat-app password reset link ',
         text: 'Click on the link provided to reset your password:\n\n' + url
     };
